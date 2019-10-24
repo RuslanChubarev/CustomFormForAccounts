@@ -30,25 +30,34 @@
                 <aura:set attribute="actions">
             		<lightning:button label="New" onclick="{! c.newContact }"/>
         		</aura:set>
-                <!--<aura:iteration items="{!v.contacts}" var="contact">
-                	<c:contactItem contact ="{!contact}"/>
-            	</aura:iteration>-->
-                <div class="slds-p-left_large">                
-                <table>
-        			<tr>
-            			<td>
-                			<b>  Name</b>
-            			</td>
-            			<td>
-                			<b>Phone</b>
-            			</td>
-        			</tr>
-        			<aura:iteration items="{!v.contacts}" var="contact" >
-            			<tr>  
-                			<td>  {!contact.Name}  </td>
-                  			<td> {!contact.Phone}  </td>     
+                <div class="slds-p-left_large slds-p-right_large">                
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+        				<tr class="slds-line-height_reset">
+                        	<th class="" scope="col">
+        						<div class="slds-truncate" title="Name">Contact Name</div>
+     				    	</th>
+      						<th class="" scope="col">
+        						<div class="slds-truncate" title="Phone">Phone</div>
+      						</th>
+        				</tr>
+                    </thead>
+                    <tbody>
+                    	<aura:iteration items="{!v.contacts}" var="contact" >
+            			<tr class="slds-hint-parent">  
+                			<th>
+                                <div class="slds-truncate">                                
+                                	{!contact.Name}
+                                </div>
+                            </th>
+                  			<th>
+                                <div class="slds-truncate">                                
+                                	{!contact.Phone}
+                                </div>
+                            </th>    
             			</tr> 
-         			</aura:iteration>                                           
+         				</aura:iteration>  
+                    </tbody>        			                                         
     			</table> 
                 </div>
 			</lightning:card>   	            	
