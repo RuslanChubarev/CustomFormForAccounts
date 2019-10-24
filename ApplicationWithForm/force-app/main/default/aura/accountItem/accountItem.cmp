@@ -1,0 +1,58 @@
+<aura:component controller="AccountItemController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+	<aura:attribute name="account" type="Account" />
+   	<aura:attribute name="contacts" type="Contact[]" />
+	<lightning:card title="{!v.account.Name}" variant="Narrow" iconName="standard:account" class="slds-card_boundary ">
+		<aura:set attribute="actions">
+			<lightning:buttonMenu alternativeText="More options" onselect="{! c.handleSelect}" menuAlignment="right">
+				<lightning:menuItem label="Edit" value="1" />
+				<lightning:menuItem label="Delete" value="2" />
+			</lightning:buttonMenu>
+		</aura:set>
+		<p class="slds-p-horizontal_small">
+			PhoneNumber:
+			<lightning:formattedText value="{!v.account.Phone}" />
+		</p>
+		<p class="slds-p-horizontal_small">
+			Site:
+			<lightning:formattedText linkify="true" value="{!v.account.Site}" />
+		</p>
+		<p class="slds-p-horizontal_small">
+			Fax:
+			<lightning:formattedText linkify="true" value="{!v.account.Fax}" />
+		</p>
+		<p class="slds-p-horizontal--small">
+			Annual revenue:
+			<lightning:formattedNumber value="{!v.account.AnnualRevenue}" style="currency" />
+		</p>
+		<div class="slds-p-left_small slds-p-right_medium slds-p-top_small">
+			<lightning:card title="Contacts" iconName="standard:contact" class="slds-card_boundary ">
+                <aura:set attribute="actions">
+            		<lightning:button label="New" onclick="{! c.newContact }"/>
+        		</aura:set>
+                <!--<aura:iteration items="{!v.contacts}" var="contact">
+                	<c:contactItem contact ="{!contact}"/>
+            	</aura:iteration>-->
+                <div class="slds-p-left_large">                
+                <table>
+        			<tr>
+            			<td>
+                			<b>  Name</b>
+            			</td>
+            			<td>
+                			<b>Phone</b>
+            			</td>
+        			</tr>
+        			<aura:iteration items="{!v.contacts}" var="contact" >
+            			<tr>  
+                			<td>  {!contact.Name}  </td>
+                  			<td> {!contact.Phone}  </td>     
+            			</tr> 
+         			</aura:iteration>                                           
+    			</table> 
+                </div>
+			</lightning:card>   	            	
+		</div>
+	</lightning:card>
+	<lightning:notificationsLibrary aura:id="notifaboutdelete" />
+</aura:component>
