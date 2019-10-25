@@ -5,10 +5,11 @@ public class AccountItemController {
             System.debug('deleteAccountRecord::deleteAccount::account'+myAccount);
             if(myAccount != null) {
                 delete myAccount;
-            }            
-        } catch (Exception ex) {
-        	System.debug('Exception '+ex);    
+            }
         }
+        catch (Exception ex) {
+            throw new MyException(ex .getMessage());
+        }            
     }
     
     @AuraEnabled

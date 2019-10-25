@@ -1,25 +1,21 @@
 <aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="AccountController">
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
-    <aura:attribute name="accounts" type="Account[]"/>
-    <aura:attribute name="ratingMap" type="Map"/>
-    <aura:attribute name="ownershipMap" type="Map"/>
-    <aura:attribute name="typeMap" type="Map"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:attribute name="accounts" type="Account[]" />
+    <aura:attribute name="ratingMap" type="Map" />
+    <aura:attribute name="ownershipMap" type="Map" />
+    <aura:attribute name="typeMap" type="Map" />
     <aura:attribute name="newAccount" type="Account" default="{ 'sobjectType': 'Account',
         'AnnualRevenue': 0,
          }" />
     <div class="slds-grid slds-wrap ">
         <div class="slds-size--1-of-1">
-            <!-- <lightning:layoutItem padding="around-small" size="6"> -->
-            <!-- CREATE NEW ACCOUNT -->
             <div aria-labelledby="newaccountform">
-                <!-- BOXED AREA -->
                 <div class="slds-grid slds-wrap">
                     <fieldset class="slds-box slds-theme--default slds-size--4-of-6">
                         <legend id="newtransactionform" class="slds-text-heading_medium
                         slds-p-vertical--medium">
                             Add account
                         </legend>
-                        <!-- CREATE NEW ACCOUNT FORM -->
                         <form class="slds-form--compound">
                             <fieldset class="slds-form--compound ">
                                 <div class="form-element__group">
@@ -30,22 +26,22 @@
                                         <lightning:input type="text" aura:id="accountnumber" label="Account Number"
                                             name="accountnumber" value="{!v.newAccount.Number}"
                                             messageWhenRangeUnderflow="Enter an account number" required="true"
-                                            class="slds-col slds-size_2-of-4" />
+                                            class="slds-col slds-size_2-of-4" pattern="[0-9]*" />
                                     </div>
                                 </div>
                             </fieldset>
                             <lightning:input type="text" aura:id="accountsite" label="Account Site" name="accountsite"
                                 value="{!v.newAccount.Site}" required="true" />
                             <lightning:input type="text" aura:id="phonenumber" label="Phone Number" name="phonenumber"
-                                value="{!v.newAccount.Phone}" required="true" />
+                                value="{!v.newAccount.Phone}" required="true" pattern="+[0-9]{12}" />
                             <lightning:input type="text" aura:id="fax" label="Fax" name="fax"
                                 value="{!v.newAccount.Fax}" required="true" />
                             <fieldset class="slds-form--compound">
                                 <div class="form-element__group">
                                     <div class="slds-form-element__row slds-grid slds-wrap">
                                         <lightning:select aura:id="typePicklist" value="{!v.newAccount.Type}"
-                                            onchange="{!c.handleTypeOnChange}" name="typePicklist"
-                                            label="Type" class="slds-col slds-size_2-of-6">
+                                            onchange="{!c.handleTypeOnChange}" name="typePicklist" label="Type"
+                                            class="slds-col slds-size_2-of-6">
                                             <option value="">--None--</option>
                                             <aura:iteration items="{!v.typeMap}" var="ind" indexVar="key">
                                                 <option text="{!ind.value}" value="{!ind.key}"
@@ -62,8 +58,8 @@
                                             </aura:iteration>
                                         </lightning:select>
                                         <lightning:select aura:id="ratingPicklist" value="{!v.newAccount.Rating}"
-                                            onchange="{!c.handleRatingOnChange}" name="ratingPicklist"
-                                            label="Rating" class="slds-col slds-size_2-of-6">
+                                            onchange="{!c.handleRatingOnChange}" name="ratingPicklist" label="Rating"
+                                            class="slds-col slds-size_2-of-6">
                                             <option value="">--None--</option>
                                             <aura:iteration items="{!v.ratingMap}" var="ind" indexVar="key">
                                                 <option text="{!ind.value}" value="{!ind.key}"
@@ -80,13 +76,10 @@
                             <lightning:button label="Create Account" class="slds-m-top--medium" variant="brand"
                                 onclick="{!c.clickCreate}" />
                         </form>
-                        <!-- / CREATE NEW ACCOUNT FORM -->
                     </fieldset>
-                    <!-- / BOXED AREA -->
                 </div>
             </div>
-            <!-- / CREATE NEW ACCOUNT -->
         </div>
     </div>
-    <c:accounts accounts="{!v.accounts}"/>
+    <c:accounts accounts="{!v.accounts}" />
 </aura:component>

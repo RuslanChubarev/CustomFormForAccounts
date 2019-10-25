@@ -1,12 +1,12 @@
 <aura:component>
-    <aura:attribute name="accounts" type="Account[]"/>
-    <div class="slds-p-top_medium">
-    	<lightning:card title="Accounts">
-        	<p class="slds-p-horizontal--small">
-                <aura:iteration items="{!v.accounts}" var="account">
-                	<c:accountItem account="{!account}"/>
-            	</aura:iteration>
-        	</p>
-    	</lightning:card>
-    </div>
+	<aura:attribute name="accounts" type="Account[]" />
+	<div class="slds-p-top_medium">
+		<lightning:card title="Accounts">
+			<p class="slds-p-horizontal--small">
+				<aura:iteration items="{!v.accounts}" var="account">
+					<c:accountItem account="{!account}" />
+				</aura:iteration>
+			</p>
+		</lightning:card>
+	</div>
 </aura:component>

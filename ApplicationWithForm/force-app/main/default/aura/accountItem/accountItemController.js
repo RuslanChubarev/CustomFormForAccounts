@@ -1,39 +1,41 @@
 ({
-    doInit : function(component, event, helper) { 
+    doInit: function (component, event, helper) {
         var idOfAccount = component.get("v.account.Id");
         var action = component.get("c.getContacts");
         action.setParams({
-        	"myAccountId": idOfAccount,
-    	});
-        // Add callback behavior for when response is received
-        action.setCallback(this, function(response) {
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                component.set("v.contacts", response.getReturnValue());
-            }
+            "myAccountId": idOfAccount,
         });
-        // Send action off to be executed
-        $A.enqueueAction(action);
+        helper.call(action).then(function(contacts){
+            component.set("v.contacts",contacts);
+		},function(err){
+			component.find('notifaboutdelete').showNotice({
+                "variant": "error",
+                "header": "Error!",
+                "message": "Record was not successfully retrieve .",
+                closeCallback: function () {
+                    $A.get('e.force:refreshView').fire();
+                }
+            });
+		})        
     },
-    
-    handleSelect: function(component, event, helper) {
+
+    handleSelect: function (component, event, helper) {
         var menuValue = event.detail.menuItem.get("v.value");
-        switch(menuValue) {
+        switch (menuValue) {
             case "1": helper.doEdit(component, event); break;
             case "2": helper.doDelete(component, event); break;
         }
     },
-    
-    newContact: function(component, event, helper) {
-        var idOfAccount = component.get("v.account.Id");
-    	var createRecordEvent = $A.get("e.force:createRecord");
-    	createRecordEvent.setParams({
-        	"entityApiName": "Contact",
-            "defaultFieldValues": {
-        			'AccountId' : idOfAccount
-    		}
-    	});
 
-    	createRecordEvent.fire();  
+    newContact: function (component, event, helper) {
+        var idOfAccount = component.get("v.account.Id");
+        var createRecordEvent = $A.get("e.force:createRecord");
+        createRecordEvent.setParams({
+            "entityApiName": "Contact",
+            "defaultFieldValues": {
+                'AccountId': idOfAccount
+            }
+        });
+        createRecordEvent.fire();
     }
 })

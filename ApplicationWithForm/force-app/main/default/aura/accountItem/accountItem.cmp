@@ -1,8 +1,9 @@
 <aura:component controller="AccountItemController">
-    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}" />
 	<aura:attribute name="account" type="Account" />
-   	<aura:attribute name="contacts" type="Contact[]" />
-	<lightning:card title="{!v.account.Name}" variant="Narrow" iconName="standard:account" class="slds-card_boundary ">
+	<aura:attribute name="contacts" type="Contact[]" />
+	<lightning:card title="{!v.account.Name}" variant="Narrow" iconName="standard:account"
+		class="slds-card_boundary custom-card">
 		<aura:set attribute="actions">
 			<lightning:buttonMenu alternativeText="More options" onselect="{! c.handleSelect}" menuAlignment="right">
 				<lightning:menuItem label="Edit" value="1" />
@@ -27,40 +28,40 @@
 		</p>
 		<div class="slds-p-left_small slds-p-right_medium slds-p-top_small">
 			<lightning:card title="Contacts" iconName="standard:contact" class="slds-card_boundary ">
-                <aura:set attribute="actions">
-            		<lightning:button label="New" onclick="{! c.newContact }"/>
-        		</aura:set>
-                <div class="slds-p-left_large slds-p-right_large">                
-                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
-                    <thead>
-        				<tr class="slds-line-height_reset">
-                        	<th class="" scope="col">
-        						<div class="slds-truncate" title="Name">Contact Name</div>
-     				    	</th>
-      						<th class="" scope="col">
-        						<div class="slds-truncate" title="Phone">Phone</div>
-      						</th>
-        				</tr>
-                    </thead>
-                    <tbody>
-                    	<aura:iteration items="{!v.contacts}" var="contact" >
-            			<tr class="slds-hint-parent">  
-                			<th>
-                                <div class="slds-truncate">                                
-                                	{!contact.Name}
-                                </div>
-                            </th>
-                  			<th>
-                                <div class="slds-truncate">                                
-                                	{!contact.Phone}
-                                </div>
-                            </th>    
-            			</tr> 
-         				</aura:iteration>  
-                    </tbody>        			                                         
-    			</table> 
-                </div>
-			</lightning:card>   	            	
+				<aura:set attribute="actions">
+					<lightning:button label="New" onclick="{! c.newContact }" />
+				</aura:set>
+				<div class="slds-p-left_large slds-p-right_large">
+					<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+						<thead>
+							<tr class="slds-line-height_reset">
+								<th class="" scope="col">
+									<div class="slds-truncate" title="Name">Contact Name</div>
+								</th>
+								<th class="" scope="col">
+									<div class="slds-truncate" title="Phone">Phone</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<aura:iteration items="{!v.contacts}" var="contact">
+								<tr class="slds-hint-parent">
+									<th>
+										<div class="slds-truncate">
+											{!contact.Name}
+										</div>
+									</th>
+									<th>
+										<div class="slds-truncate">
+											{!contact.Phone}
+										</div>
+									</th>
+								</tr>
+							</aura:iteration>
+						</tbody>
+					</table>
+				</div>
+			</lightning:card>
 		</div>
 	</lightning:card>
 	<lightning:notificationsLibrary aura:id="notifaboutdelete" />

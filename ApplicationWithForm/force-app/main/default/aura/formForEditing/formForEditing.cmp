@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <lightning:recordForm
+        recordId = "{!v.recordId}"
+        objectApiName="Transaction__c"
+        layoutType="Compact"
+        mode="edit" />
+</aura:component>

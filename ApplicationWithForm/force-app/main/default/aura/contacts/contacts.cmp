@@ -1,12 +1,12 @@
 <aura:component>
-    <aura:attribute name="contacts" type="Contact[]"/>
-    <div class="slds-p-top_medium">
-    	<lightning:card>
-        	<p class="slds-p-horizontal--small">
-                <aura:iteration items="{!v.contacts}" var="contact">
-                	<c:contactItem contact ="{!contact}"/>
-            	</aura:iteration>
-        	</p>
-    	</lightning:card>
-    </div>
+	<aura:attribute name="contacts" type="Contact[]" />
+	<div class="slds-p-top_medium">
+		<lightning:card>
+			<p class="slds-p-horizontal--small">
+				<aura:iteration items="{!v.contacts}" var="contact">
+					<c:contactItem contact="{!contact}" />
+				</aura:iteration>
+			</p>
+		</lightning:card>
+	</div>
 </aura:component>

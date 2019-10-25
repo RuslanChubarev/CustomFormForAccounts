@@ -1,9 +1,9 @@
-<aura:component >
+<aura:component>
 	<aura:attribute name="contact" type="Contact" />
-    <lightning:card title="{!v.contact.Name}">
-        <p class="slds-p-horizontal_small">
+	<lightning:card title="{!v.contact.Name}">
+		<p class="slds-p-horizontal_small">
 			Phone:
 			<lightning:formattedText value="{!v.contact.Phone}" />
 		</p>
-    </lightning:card>
+	</lightning:card>
 </aura:component>

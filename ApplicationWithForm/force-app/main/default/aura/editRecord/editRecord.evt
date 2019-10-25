@@ -1,0 +1,4 @@
+<!--c:compEvent-->
+<aura:event type="COMPONENT">
+    <aura:attribute name="Transaction" type="Transaction__c"/>
+</aura:event>
