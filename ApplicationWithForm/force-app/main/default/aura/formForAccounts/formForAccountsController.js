@@ -1,35 +1,73 @@
 ({
     doInit: function (component, event, helper) {
-        helper.getRatingPicklist(component, event);
-        helper.getOwnershipPicklist(component, event);
-        helper.getTypePicklist(component, event);
-        helper.call(component.get("c.getAccounts")).then(function(accounts){
-            component.set("v.accounts", accounts);
-		},function(err){
-			component.find('notifaboutdelete').showNotice({
-                "variant": "error",
-                "header": "Error!",
-                "message": "Record was not successfully deleted .",
-                closeCallback: function () {
-                    $A.get('e.force:refreshView').fire();
+        //get Promices for picklist
+        var action = component.get('c.getAccounts');
+        var promiceForAccounts = helper.getAccounts(action);
+        var action0 = component.get('c.getRating');
+        var promiceRatingPicklist = helper.getPicklist(action0);
+        var action1 = component.get('c.getOwnership');
+        var promiceOwnershipPicklist = helper.getPicklist(action1);
+        var action2 = component.get('c.getType');
+        var promiceTypePicklist = helper.getPicklist(action2);
+        console.log('end of definition');
+        console.log(promiceForAccounts);
+        console.log(promiceRatingPicklist);
+        console.log(promiceOwnershipPicklist);
+        console.log(promiceTypePicklist);
+
+        Promise.all([
+            promiceForAccounts,
+            promiceRatingPicklist,
+            promiceOwnershipPicklist,
+            promiceTypePicklist
+        ]).then(
+            function (result) {
+                console.log(result[0]);
+                console.log(result[1]);
+                console.log(result[2]);
+                console.log(result[3]);
+                component.set("v.accounts", result[0]);
+
+                var ratingMap = [];
+                for (var key in result[1]) {
+                    ratingMap.push({ key: key, value: result[1][key] });
                 }
-            });
-		})
+                component.set("v.ratingMap", ratingMap);
+
+                var ownershipMap = [];
+                for (var key in result[2]) {
+                    ownershipMap.push({ key: key, value: result[2][key] });
+                }
+                component.set("v.ownershipMap", ownershipMap);
+
+                var typeMap = [];
+                for (var key in result[3]) {
+                    typeMap.push({ key: key, value: result[3][key] });
+                }
+                component.set("v.typeMap", typeMap);
+            }
+        ).catch(
+            function (error) {
+                console.log(error);
+            }
+        );
+        console.log("Not error");
+
     },
 
-    handleRatingOnChange: function (component, event, helper) {
+    handleRatingOnChange: function (component) {
         var rating = component.get("v.newAccount.Rating");
     },
 
-    handleOwnershipOnChange: function (component, event, helper) {
+    handleOwnershipOnChange: function (component) {
         var ownership = component.get("v.newAccount.Ownership");
     },
 
-    handleTypeOnChange: function (component, event, helper) {
+    handleTypeOnChange: function (component) {
         var ownership = component.get("v.newAccount.Type");
     },
 
-    clickCreate: function (component, event, helper) {
+    clickCreate: function (component) {
         console.log('Create record');
 
         var inputName = component.find("accountname");
@@ -38,17 +76,8 @@
         var inputNumber = component.find("accountnumber");
         var valueOfNumber = inputNumber.get("v.value");
 
-        var inputSite = component.find("accountsite");
-        var valueOfSite = inputSite.get("v.value");
-
         var inputPhoneNumber = component.find("phonenumber");
         var valueOfPhoneNumber = inputPhoneNumber.get("v.value");
-
-        var inputAnnualRevenue = component.find("accountannualrevenue");
-        var valueOfAnnualRevenue = inputAnnualRevenue.get("v.value");
-
-        var inputFax = component.find("fax");
-        var valueOfFax = inputFax.get("v.value");
 
         var mainAccount = component.get("v.newAccount");
 
