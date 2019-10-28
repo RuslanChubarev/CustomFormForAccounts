@@ -4,7 +4,7 @@
         helper.getOwnershipPicklist(component, event);
         helper.getTypePicklist(component, event);
         helper.call(component.get("c.getAccounts")).then(function(accounts){
-            component.set("v.accounts", accounts());
+            component.set("v.accounts", accounts);
 		},function(err){
 			component.find('notifaboutdelete').showNotice({
                 "variant": "error",
